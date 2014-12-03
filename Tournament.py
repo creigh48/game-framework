@@ -36,6 +36,7 @@ class Tournament(Observable.Observable):
             self.play_match(match)
         self.end_tournament()
         print(self.scorekeeper.get_final_three())
+        self.scorekeeper.display_leaderboard()
 
     # get a reference to the next game to be played
     def create_next_match(self):

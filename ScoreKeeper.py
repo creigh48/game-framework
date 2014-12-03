@@ -1,7 +1,7 @@
 __author__ = 'jeffrey creighton & anand patel'
 # Purpose: to collect and store scores from all players and matches
 import ScoreKeeperHistoryItem
-import ScoreKeeperListItem
+from ScoreKeeperListItem import *
 
 
 class ScoreKeeper(object):
@@ -31,14 +31,16 @@ class ScoreKeeper(object):
 
         #creates the listitems for both players and checks to see if they are on the leaderboard
         #if not present on the leader board, they are appended
+        print(players)
         for i in range(len(players)):
-            listitem = ScoreKeeperListItem.ScoreKeeperListItem(players[i])
-            if self.check_player(listitem):
+            if self.check_player(players[i]):
+                listitem = ScoreKeeperListItem(players[i])
                 self.leaderboard.append(listitem)
 
+        for j in range(len(players)):
             #checks the winner and awards a point to that player
-            if(players[i] is winner):
-                self.make_winner(players[i])
+            if(players[j] is winner):
+                self.make_winner(players[j])
             #in the event of a tie, no points awarded
             else:
                 pass
@@ -54,7 +56,7 @@ class ScoreKeeper(object):
         """
         check = True
         for i in range(len(self.leaderboard)):
-            if self.leaderboard[i].get_player() == player.get_player():
+            if self.leaderboard[i].get_player() is player:
                 check = False
             else:
                 check = True
@@ -94,3 +96,8 @@ class ScoreKeeper(object):
         player_list.append(self.leaderboard[2].get_player().get_name())
 
         return player_list
+
+    def display_leaderboard(self):
+        print("Player Stats")
+        for i in range(len(self.leaderboard)):
+            print(i, ". ", self.leaderboard[i].get_player().get_name(), " : ", self.leaderboard[i].get_score())
